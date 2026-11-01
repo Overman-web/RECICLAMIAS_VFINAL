@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ReciclaMais - Sistema de gerenciamento de resíduos e solicitações de coleta.">
+  <title>ReciclaMais | Gestão de resíduos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#inicio" aria-label="ReciclaMais - início"><span class="brand-mark">♻</span><span>Recicla<span>Mais</span></span></a>
+    <nav class="main-nav" aria-label="Navegação principal">
+      <a href="#inicio">Início</a>
+      <a href="#solicitar">Solicitar coleta</a>
+      <a href="#acompanhar">Acompanhar</a>
+    </nav>
+    <button class="button button-dark" id="openLogin">Área administrativa</button>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-content">
+        <span class="eyebrow">CUIDAR DA CIDADE É RESPONSABILIDADE DE TODOS</span>
+        <h1>Descarte correto.<br><span>Cidade melhor.</span></h1>
+        <p>Solicite a coleta de resíduos e acompanhe o atendimento de maneira simples e organizada.</p>
+        <div class="hero-actions"><a class="button button-primary" href="#solicitar">Solicitar coleta <span>→</span></a><a class="text-link" href="#acompanhar">Consultar solicitação</a></div>
+      </div>
+      <div class="hero-card"><div class="hero-icon">♻</div><p class="hero-card-label">RECICLAMAIS</p><h2>Pequenas atitudes<br>transformam espaços.</h2><div class="hero-card-line"></div><p class="hero-card-foot">Um sistema simples para uma cidade mais limpa.</p></div>
+    </section>
+
+    <section class="steps-section">
+      <div class="section-heading"><div><span class="eyebrow">COMO FUNCIONA</span><h2>Solicitar é simples</h2></div><p>Em poucos passos, sua solicitação chega à equipe responsável.</p></div>
+      <div class="steps-grid">
+        <article class="step"><span class="step-number">01</span><h3>Preencha os dados</h3><p>Informe seu endereço e o tipo de resíduo que precisa ser recolhido.</p></article>
+        <article class="step"><span class="step-number">02</span><h3>Receba o protocolo</h3><p>Guarde o número gerado para consultar sua solicitação depois.</p></article>
+        <article class="step"><span class="step-number">03</span><h3>Acompanhe o status</h3><p>Consulte as atualizações feitas pela equipe administrativa.</p></article>
+      </div>
+    </section>
+
+    <section class="content-section" id="solicitar">
+      <div class="section-heading"><div><span class="eyebrow">ATENDIMENTO AO CIDADÃO</span><h2>Solicitar coleta</h2></div><p>Preencha as informações abaixo. Os campos marcados com * são obrigatórios.</p></div>
+      <div class="form-layout">
+        <form class="panel form-panel" id="requestForm">
+          <div class="form-title"><div><h3>Nova solicitação</h3><p>Seus dados serão utilizados para organizar a coleta.</p></div><span class="form-symbol">＋</span></div>
+          <div class="form-grid">
+            <label class="field field-full">Nome completo *<input name="name" type="text" maxlength="90" placeholder="Digite seu nome" required></label>
+            <label class="field">E-mail<input name="email" type="email" maxlength="120" placeholder="seuemail@exemplo.com"></label>
+            <label class="field">Telefone<input name="phone" type="tel" maxlength="20" placeholder="(15) 99999-9999"></label>
+            <label class="field field-full">Endereço completo *<input name="address" type="text" maxlength="180" placeholder="Rua, número, bairro e complemento" required></label>
+            <label class="field">Tipo de resíduo *<select name="waste" required><option value="">Selecione uma opção</option><option>Entulho de construção</option><option>Móveis e objetos volumosos</option><option>Galhos e resíduos de poda</option><option>Recicláveis</option><option>Outros resíduos</option></select></label>
+            <label class="field">Quantidade aproximada<select name="quantity"><option value="">Selecione</option><option>Pequena</option><option>Média</option><option>Grande</option></select></label>
+            <label class="field field-full">Descrição *<textarea name="description" rows="4" maxlength="600" placeholder="Descreva os materiais e outras informações importantes" required></textarea></label>
+            <label class="field field-full">Foto do material (opcional)<input name="photo" type="file" accept="image/*"><small>A foto será armazenada localmente neste protótipo. Prefira imagens pequenas.</small></label>
+          </div>
+          <div class="form-footer"><p>Confira os dados antes de enviar.</p><button class="button button-primary" type="submit">Enviar solicitação <span>→</span></button></div>
+          <div class="notice" id="requestNotice" role="status" aria-live="polite"></div>
+        </form>
+        <aside class="side-note"><span class="side-note-icon">i</span><h3>Antes de solicitar</h3><p>Informe um endereço onde a equipe consiga localizar o material.</p><div class="side-divider"></div><h4>Importante</h4><p>O envio do formulário registra um pedido. A data da coleta dependerá da análise e do planejamento da equipe responsável.</p></aside>
+      </div>
+    </section>
+
+    <section class="tracking-section" id="acompanhar">
+      <div class="tracking-copy"><span class="eyebrow">CONSULTA DE PROTOCOLO</span><h2>Acompanhe sua solicitação.</h2><p>Digite o protocolo recebido após o cadastro para consultar as informações e o andamento do pedido.</p></div>
+      <form class="tracking-form" id="trackingForm"><label for="protocolInput">Número do protocolo</label><div class="tracking-input-row"><input id="protocolInput" placeholder="Ex.: RM-2026-0001" required><button class="button button-dark" type="submit">Consultar</button></div><div id="trackingResult" class="tracking-result" aria-live="polite"></div></form>
+    </section>
+  </main>
+
+  <footer class="footer"><a class="brand footer-brand" href="#inicio"><span class="brand-mark">♻</span><span>Recicla<span>Mais</span></span></a><p>Sistema de gerenciamento de resíduos.</p><span>Projeto Integrador • Fatec</span></footer>
+
+  <div class="modal-backdrop" id="loginModal" hidden>
+    <section class="modal login-modal" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+      <button class="modal-close" data-close="loginModal" aria-label="Fechar">×</button>
+      <span class="eyebrow">ACESSO RESTRITO</span><h2 id="loginTitle">Área administrativa</h2><p>Entre com suas credenciais para gerenciar as solicitações.</p>
+      <form id="loginForm"><label class="field">E-mail<input name="email" type="email" placeholder="admin@reciclamais.com" required></label><label class="field">Senha<input name="password" type="password" placeholder="Sua senha" required></label><button class="button button-primary button-wide" type="submit">Entrar</button><div class="notice" id="loginNotice" role="status"></div></form>
+      <small class="demo-hint">Acesso inicial de demonstração: admin@reciclamais.com / admin123</small>
+    </section>
+  </div>
+
+  <section class="admin-app" id="adminApp" hidden>
+    <header class="admin-topbar"><a class="brand" href="#inicio"><span class="brand-mark">♻</span><span>Recicla<span>Mais</span></span></a><div class="admin-user"><span id="adminWelcome">Administrador</span><button class="button button-outline" id="logoutButton">Sair</button></div></header>
+    <div class="admin-shell">
+      <aside class="admin-sidebar"><span class="eyebrow">GERENCIAMENTO</span><button class="admin-nav active" data-admin-view="requestsView">▤ <span>Solicitações</span></button><button class="admin-nav" data-admin-view="adminsView">♙ <span>Administradores</span></button><a class="admin-back" href="#inicio">← Voltar ao site</a></aside>
+      <div class="admin-main">
+        <section id="requestsView" class="admin-view"><div class="admin-heading"><div><span class="eyebrow">PAINEL DE CONTROLE</span><h1>Solicitações</h1><p>Consulte e atualize os pedidos de coleta recebidos.</p></div><button class="button button-primary" id="exportButton">Exportar CSV ↓</button></div>
+          <div class="stats-grid"><article class="stat-card"><span>Total de solicitações</span><strong id="statTotal">0</strong></article><article class="stat-card"><span>Pendentes</span><strong id="statPending">0</strong></article><article class="stat-card"><span>Em andamento</span><strong id="statProgress">0</strong></article><article class="stat-card"><span>Concluídas</span><strong id="statDone">0</strong></article></div>
+          <div class="table-panel"><div class="table-toolbar"><h3>Pedidos recebidos</h3><div class="table-filters"><input id="requestSearch" placeholder="Buscar protocolo ou nome"><select id="statusFilter"><option value="Todos">Todos os status</option><option>Pendente</option><option>Em andamento</option><option>Concluída</option><option>Cancelada</option></select></div></div><div class="table-scroll"><table><thead><tr><th>Protocolo</th><th>Solicitante</th><th>Tipo de resíduo</th><th>Data</th><th>Status</th><th>Ações</th></tr></thead><tbody id="requestsTableBody"></tbody></table></div><p class="empty-state" id="emptyRequests" hidden>Nenhuma solicitação encontrada.</p></div>
+        </section>
+        <section id="adminsView" class="admin-view" hidden><div class="admin-heading"><div><span class="eyebrow">CONTROLE DE ACESSO</span><h1>Administradores</h1><p>Cadastre pessoas autorizadas a acessar este painel.</p></div></div>
+          <div class="admin-management-grid"><form class="panel admin-form" id="adminForm"><h3>Novo administrador</h3><label class="field">Nome completo<input name="name" maxlength="90" placeholder="Nome do administrador" required></label><label class="field">E-mail<input name="email" type="email" maxlength="120" placeholder="email@exemplo.com" required></label><label class="field">Senha<input name="password" type="password" minlength="6" placeholder="Mínimo de 6 caracteres" required></label><button class="button button-primary" type="submit">Cadastrar administrador</button><div class="notice" id="adminNotice" role="status"></div></form><div class="panel admins-list-panel"><h3>Administradores cadastrados</h3><div id="adminsList"></div></div></div>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <div class="modal-backdrop" id="detailModal" hidden><section class="modal detail-modal" role="dialog" aria-modal="true" aria-labelledby="detailTitle"><button class="modal-close" data-close="detailModal" aria-label="Fechar">×</button><span class="eyebrow">DETALHES DO PEDIDO</span><h2 id="detailTitle">Solicitação</h2><div id="detailContent"></div><div class="detail-actions"><label class="field">Atualizar status<select id="detailStatus"><option>Pendente</option><option>Em andamento</option><option>Concluída</option><option>Cancelada</option></select></label><button class="button button-primary" id="saveStatusButton">Salvar alteração</button><button class="button button-danger" id="deleteRequestButton">Excluir solicitação</button></div><div class="notice" id="detailNotice" role="status"></div></section></div>
+  <script src="script.js"></script>
+</body>
+</html>

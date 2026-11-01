@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ReciclaMais — Protótipo V2</title>
+<style>
+:root{
+  --site-background:#F4F8F5; --site-primary:#16834B; --site-secondary:#0D5C3A;
+  --site-on-primary:#FFFFFF; --site-on-secondary:#FFFFFF; --site-on-background:#173126;
+  --site-font-body:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --site-font-heading:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --site-heading-scale:1; --site-spacing-scale:1; --site-radius-scale:1;
+  --surface:#FFFFFF; --muted:#61756B; --border:#DCE8E1; --soft:#EAF5EE;
+  --warning:#B66A00; --info:#2563A8; --success:#16834B; --danger:#B33A3A;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--site-background);color:var(--site-on-background);font-family:var(--site-font-body)}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+header{background:var(--site-primary);color:white;position:sticky;top:0;z-index:10;box-shadow:0 3px 18px #0b4c3020}
+.nav{max-width:1180px;margin:auto;padding:14px 22px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.brand{font-weight:850;font-size:1.25rem;display:flex;align-items:center;gap:8px}
+nav{display:flex;gap:5px;flex-wrap:wrap}
+nav button{border:0;background:transparent;color:white;padding:9px 12px;border-radius:10px}
+nav button:hover,nav button.active{background:#ffffff20}
+main{max-width:1180px;margin:auto;padding:28px 22px 70px}
+.hero{display:grid;grid-template-columns:1.25fr .75fr;gap:24px;align-items:stretch;margin:12px 0 28px}
+.hero-copy{background:linear-gradient(135deg,var(--site-secondary),var(--site-primary));color:white;border-radius:calc(24px * var(--site-radius-scale));padding:44px}
+.eyebrow{text-transform:uppercase;letter-spacing:.12em;font-size:.76rem;font-weight:800;opacity:.85}
+h1{font-size:clamp(2.2rem,5vw,4rem);line-height:1.02;margin:12px 0}
+h2{font-size:calc(1.65rem * var(--site-heading-scale));margin:0 0 10px}
+h3{margin:0 0 6px}
+p{line-height:1.6;color:var(--muted)}
+.hero p{color:#e6f4ec;max-width:680px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.btn{border:0;border-radius:12px;padding:12px 17px;font-weight:800}
+.primary{background:white;color:var(--site-secondary)}
+.secondary{background:#ffffff18;color:white;border:1px solid #ffffff45}
+.green{background:var(--site-primary);color:white}
+.outline{background:white;border:1px solid var(--border);color:var(--site-secondary)}
+.hero-art{background:var(--surface);border:1px solid var(--border);border-radius:24px;padding:28px;display:flex;flex-direction:column;justify-content:center;min-height:330px}
+.illustration{font-size:6rem;text-align:center;margin-bottom:12px}
+.stats,.features,.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:18px 0 34px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:20px;box-shadow:0 8px 28px #123c2410}
+.stat strong{display:block;font-size:2rem;color:var(--site-secondary)}
+.stat span{color:var(--muted);font-size:.9rem}
+.feature-icon{font-size:1.7rem}.feature p{font-size:.9rem}
+.steps{grid-template-columns:repeat(3,1fr)}
+.step-num{width:34px;height:34px;border-radius:50%;background:var(--soft);color:var(--site-primary);display:grid;place-items:center;font-weight:900;margin-bottom:12px}
+.section{margin-top:42px}
+.form-wrap{max-width:860px;margin:auto}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.field{display:flex;flex-direction:column;gap:7px}
+.field.full{grid-column:1/-1}
+label{font-weight:750;font-size:.9rem}
+input,select,textarea{border:1px solid var(--border);border-radius:11px;padding:12px;background:white;color:var(--site-on-background);outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--site-primary);box-shadow:0 0 0 3px #16834b18}
+textarea{min-height:100px;resize:vertical}
+.file{border:2px dashed #bcd5c6;background:#f7fbf8;padding:20px;border-radius:12px}
+.notice{background:#f1f7f3;border-left:4px solid var(--site-primary);padding:12px 15px;border-radius:8px;margin:14px 0;color:#355448}
+.hidden{display:none!important}
+.protocol{font-size:1.7rem;font-weight:900;color:var(--site-secondary);letter-spacing:.04em}
+.track{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:22px 0}
+.track div{padding:12px 8px;border-radius:10px;text-align:center;background:#edf2ef;color:#74867d;font-size:.8rem;font-weight:800}
+.track .done{background:#d9f1e1;color:var(--site-primary)}
+.admin-grid{display:grid;grid-template-columns:230px 1fr;gap:18px}
+.sidebar{background:var(--site-secondary);color:white;border-radius:18px;padding:18px;height:max-content}
+.sidebar button{display:block;width:100%;text-align:left;background:transparent;border:0;color:white;padding:11px;border-radius:9px}
+.sidebar button.active,.sidebar button:hover{background:#ffffff18}
+.table-wrap{overflow:auto}.table{width:100%;border-collapse:collapse;min-width:700px}.table th,.table td{padding:13px;border-bottom:1px solid var(--border);text-align:left}.table th{font-size:.8rem;color:var(--muted)}
+.badge{display:inline-block;padding:5px 9px;border-radius:999px;font-size:.75rem;font-weight:800}
+.analysis{background:#fff1d8;color:#9a5b00}.scheduled{background:#e0efff;color:#225e9d}.collected{background:#dcf4e4;color:#147343}
+.login{max-width:460px;margin:30px auto}
+footer{background:#103d2b;color:#dcece4;padding:28px 22px;text-align:center}
+footer p{color:#bcd0c6;margin:6px}
+@media(max-width:850px){
+ .hero{grid-template-columns:1fr}.stats,.features{grid-template-columns:1fr 1fr}.steps{grid-template-columns:1fr}
+ .admin-grid{grid-template-columns:1fr}.form{grid-template-columns:1fr}.field.full{grid-column:auto}
+ nav{display:none}.nav{padding:12px 16px}main{padding:20px 15px 55px}.hero-copy{padding:30px}
+}
+@media(max-width:500px){.stats,.features{grid-template-columns:1fr}.hero-art{min-height:220px}.illustration{font-size:4.5rem}}
+</style>
+</head>
+<body>
+<header>
+  <div class="nav">
+    <div class="brand">♻ <span>ReciclaMais</span></div>
+    <nav>
+      <button class="active" onclick="show('home',this)">Início</button>
+      <button onclick="show('request',this)">Solicitar coleta</button>
+      <button onclick="show('track',this)">Acompanhar</button>
+      <button onclick="show('admin',this)">Administrador</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section id="home" class="page">
+  <div class="hero">
+    <div class="hero-copy">
+      <div class="eyebrow">Gestão inteligente de resíduos</div>
+      <h1>Uma cidade mais limpa começa com uma solicitação.</h1>
+      <p>O ReciclaMais conecta cidadãos e prefeitura em um único fluxo: solicite a coleta, receba um protocolo e acompanhe cada etapa até a retirada.</p>
+      <div class="actions">
+        <button class="btn primary" onclick="show('request')">Solicitar coleta</button>
+        <button class="btn secondary" onclick="show('track')">Acompanhar protocolo</button>
+      </div>
+    </div>
+    <div class="hero-art">
+      <div class="illustration">🚛♻️</div>
+      <h2>Coleta organizada</h2>
+      <p>Pedidos centralizados, status claros e informações suficientes para a equipe planejar o atendimento.</p>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="card stat"><strong>4</strong><span>tipos de resíduos</span></div>
+    <div class="card stat"><strong>24h</strong><span>acompanhamento online</span></div>
+    <div class="card stat"><strong>1</strong><span>protocolo por solicitação</span></div>
+    <div class="card stat"><strong>100%</strong><span>fluxo digital no protótipo</span></div>
+  </div>
+
+  <div class="section">
+    <h2>Como funciona?</h2>
+    <div class="steps">
+      <div class="card"><div class="step-num">1</div><h3>Solicite</h3><p>Informe o local, tipo de resíduo e, se necessário, envie uma foto.</p></div>
+      <div class="card"><div class="step-num">2</div><h3>Aguarde a análise</h3><p>A equipe da prefeitura verifica o pedido e define o atendimento.</p></div>
+      <div class="card"><div class="step-num">3</div><h3>Acompanhe</h3><p>Use o protocolo para consultar o andamento até a coleta ser concluída.</p></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>O que o sistema resolve?</h2>
+    <div class="features">
+      <div class="card feature"><div class="feature-icon">📝</div><h3>Solicitação online</h3><p>O cidadão registra o pedido sem precisar ir até um posto de atendimento.</p></div>
+      <div class="card feature"><div class="feature-icon">📷</div><h3>Foto do resíduo</h3><p>Uma imagem ajuda a equipe a entender o material antes do atendimento.</p></div>
+      <div class="card feature"><div class="feature-icon">🔎</div><h3>Protocolo</h3><p>Cada pedido recebe um identificador para consulta rápida.</p></div>
+      <div class="card feature"><div class="feature-icon">🏛️</div><h3>Painel da prefeitura</h3><p>Administradores visualizam, filtram e atualizam as solicitações.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="request" class="page hidden">
+  <div class="form-wrap">
+    <div class="card">
+      <div class="eyebrow" style="color:var(--site-primary)">Nova solicitação</div>
+      <h2>Solicitar coleta</h2>
+      <p>Preencha os dados abaixo. Os campos marcados com * são obrigatórios.</p>
+      <div class="form">
+        <div class="field"><label>Nome completo *</label><input id="name" placeholder="Ex.: Mariana Souza"></div>
+        <div class="field"><label>Telefone</label><input placeholder="(15) 99999-9999"></div>
+        <div class="field"><label>Endereço *</label><input id="address" placeholder="Rua, número"></div>
+        <div class="field"><label>Bairro *</label><input placeholder="Ex.: Centro"></div>
+        <div class="field"><label>Tipo de resíduo *</label><select id="waste"><option value="">Selecione</option><option>Podas e resíduos verdes</option><option>Recicláveis</option><option>Eletrônicos</option><option>Entulho e volumosos</option></select></div>
+        <div class="field"><label>Quantidade aproximada</label><select><option>Selecione</option><option>Pequena</option><option>Média</option><option>Grande</option></select></div>
+        <div class="field"><label>Data desejada *</label><input id="date" type="date"></div>
+        <div class="field"><label>Foto do resíduo</label><input type="file" accept="image/*"></div>
+        <div class="field full"><label>Observação</label><textarea placeholder="Ex.: o material está na calçada, próximo ao portão..."></textarea></div>
+        <div class="field full"><div class="notice">🔒 Seus dados serão utilizados para registrar e acompanhar a solicitação de coleta.</div></div>
+        <div class="field full"><button class="btn green" onclick="submitRequest()">Enviar solicitação</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="track" class="page hidden">
+  <div class="form-wrap">
+    <div class="card">
+      <div class="eyebrow" style="color:var(--site-primary)">Consulta pública</div>
+      <h2>Acompanhar solicitação</h2>
+      <p>Digite o protocolo recebido após o cadastro.</p>
+      <div class="actions">
+        <input id="protocol" style="flex:1;min-width:220px" placeholder="Ex.: RM-2026-00482">
+        <button class="btn green" onclick="trackRequest()">Consultar</button>
+      </div>
+      <div id="trackResult" class="hidden"></div>
+    </div>
+  </div>
+</section>
+
+<section id="admin" class="page hidden">
+  <div id="loginBox" class="login card">
+    <div class="eyebrow" style="color:var(--site-primary)">Área restrita</div>
+    <h2>Acesso do administrador</h2>
+    <p>Entre para gerenciar as solicitações da prefeitura.</p>
+    <div class="field"><label>E-mail</label><input id="email" value="administrador@reciclamais.com"></div><br>
+    <div class="field"><label>Senha</label><input id="pass" type="password" value="123456"></div>
+    <button class="btn green" style="width:100%;margin-top:16px" onclick="login()">Entrar</button>
+    <p style="font-size:.8rem">Demonstração: use as credenciais preenchidas acima.</p>
+  </div>
+  <div id="dashboard" class="hidden">
+    <div class="admin-grid">
+      <aside class="sidebar">
+        <strong>♻ ReciclaMais</strong>
+        <hr style="border-color:#ffffff20">
+        <button class="active">📊 Visão geral</button>
+        <button>📋 Solicitações</button>
+        <button>👥 Administradores</button>
+        <button onclick="logout()">↩ Sair</button>
+      </aside>
+      <div>
+        <div class="stats">
+          <div class="card stat"><strong id="total">12</strong><span>Total de solicitações</span></div>
+          <div class="card stat"><strong>4</strong><span>Em análise</span></div>
+          <div class="card stat"><strong>3</strong><span>Agendadas</span></div>
+          <div class="card stat"><strong>5</strong><span>Coletadas</span></div>
+        </div>
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+            <div><h2>Solicitações recentes</h2><p>Gerencie e atualize o status de cada pedido.</p></div>
+            <select><option>Todos os status</option><option>Em análise</option><option>Agendadas</option><option>Coletadas</option></select>
+          </div>
+          <div class="table-wrap">
+          <table class="table">
+            <thead><tr><th>Protocolo</th><th>Cidadão</th><th>Resíduo</th><th>Bairro</th><th>Status</th><th>Ação</th></tr></thead>
+            <tbody>
+              <tr><td>RM-2026-00482</td><td>Mariana Souza</td><td>Entulho</td><td>Centro</td><td><span class="badge analysis">Em análise</span></td><td><button class="btn outline" onclick="alert('Detalhes da solicitação RM-2026-00482')">Ver</button></td></tr>
+              <tr><td>RM-2026-00481</td><td>João Ferreira</td><td>Podas</td><td>Vila Nova</td><td><span class="badge scheduled">Agendada</span></td><td><button class="btn outline" onclick="alert('Detalhes da solicitação RM-2026-00481')">Ver</button></td></tr>
+              <tr><td>RM-2026-00480</td><td>Ana Costa</td><td>Recicláveis</td><td>Jardim Brasil</td><td><span class="badge collected">Coletada</span></td><td><button class="btn outline" onclick="alert('Detalhes da solicitação RM-2026-00480')">Ver</button></td></tr>
+              <tr><td>RM-2026-00479</td><td>Pedro Lima</td><td>Eletrônicos</td><td>Centro</td><td><span class="badge analysis">Em análise</span></td><td><button class="btn outline" onclick="alert('Detalhes da solicitação RM-2026-00479')">Ver</button></td></tr>
+            </tbody>
+          </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><strong>♻ ReciclaMais</strong><p>Protótipo acadêmico — Sistema de gerenciamento de resíduos.</p></footer>
+
+<script>
+function show(id,btn){
+ document.querySelectorAll('.page').forEach(x=>x.classList.add('hidden'));
+ document.getElementById(id).classList.remove('hidden');
+ document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));
+ if(btn) btn.classList.add('active');
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+function submitRequest(){
+ const n=document.getElementById('name').value.trim(), a=document.getElementById('address').value.trim(), w=document.getElementById('waste').value, d=document.getElementById('date').value;
+ if(!n||!a||!w||!d){alert('Preencha os campos obrigatórios.');return}
+ const p='RM-2026-'+String(Math.floor(10000+Math.random()*89999));
+ show('track'); document.getElementById('protocol').value=p; renderTrack(p);
+}
+function renderTrack(p){
+ document.getElementById('trackResult').classList.remove('hidden');
+ document.getElementById('trackResult').innerHTML=`<div class="notice"><strong>Solicitação encontrada!</strong></div>
+ <div class="protocol">${p}</div><p>Status atual: <strong>Em análise</strong></p>
+ <div class="track"><div class="done">✓ Enviada</div><div class="done">✓ Registrada</div><div>3. Em análise</div><div>4. Coletada</div></div>
+ <p>O pedido foi registrado e está aguardando avaliação da equipe responsável.</p>`;
+}
+function trackRequest(){
+ const p=document.getElementById('protocol').value.trim();
+ if(!p){alert('Informe um protocolo.');return}
+ renderTrack(p);
+}
+function login(){
+ const e=document.getElementById('email').value, p=document.getElementById('pass').value;
+ if(e==='administrador@reciclamais.com'&&p==='123456'){document.getElementById('loginBox').classList.add('hidden');document.getElementById('dashboard').classList.remove('hidden')}
+ else alert('E-mail ou senha incorretos.');
+}
+function logout(){document.getElementById('dashboard').classList.add('hidden');document.getElementById('loginBox').classList.remove('hidden')}
+</script>
+</body>
+</html>
